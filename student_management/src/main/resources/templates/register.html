@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()">ChangeTheme</button>
+  <div class="container">
+    <h2>Student Registration Form</h2>
+
+    <!-- Success or Error Messages -->
+    <div th:if="${success}" style="color: green;" th:text="${success}"></div>
+	<div th:if="${error}" style="color: red; font-weight: bold;" th:text="${error}"></div>
+    
+    <form th:action="@{/register}" th:object="${student}" method="post">
+
+      <label for="studentName">Student Name:</label>
+		<input type="text" id="studentName" name="studentName"
+		       th:field="*{studentName}" pattern="[A-Za-z ]+"
+		       title="Only letters and spaces allowed" required />
+		
+		<!-- Field-specific error -->
+		<p th:if="${#fields.hasErrors('studentName')}" 
+		   th:errors="*{studentName}" 
+		   style="color: red;"></p>
+
+      <label for="course">Course:</label>
+      <input type="text" id="course" th:field="*{course}" required>
+
+      <label for="mobile_number">Mobile Number:</label>
+      <input type="tel" id="mobile_number" th:field="*{mobileNumber}" required pattern="[0-9]{10}" title="Enter a 10-digit mobile number">
+
+      <label for="email_id">Email:</label>
+      <input type="email" id="email_id" th:field="*{emailId}" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" th:field="*{password}" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+	<script>
+	function toggleTheme() {
+	    document.body.classList.toggle('dark');
+	    if (document.body.classList.contains('dark')) {
+	        localStorage.setItem('theme', 'dark');
+	    } else {
+	        localStorage.setItem('theme', 'light');
+	    }
+	}
+	
+	window.onload = () => {
+	    if (localStorage.getItem('theme') === 'dark') {
+	        document.body.classList.add('dark');
+	    }
+	};
+	</script>
+	  
+</body>
+</html>
