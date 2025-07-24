@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student List</title>
+  <link rel="stylesheet" th:href="@{/students.css}" />
+</head>
+<body>
+	<button class="toggle-theme" onclick="toggleDarkMode()">ChangeTheme</button>
+
+<script>
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+</script>
+	<br><br>
+  <div class="container">
+    <h2>All Registered Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Course</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="student : ${students}">
+          <td th:text="${student.studentId}">ID</td>
+          <td th:text="${student.studentName}">Name</td>
+          <td th:text="${student.course}">Course</td>
+          <td th:text="${student.mobileNumber}">Mobile</td>
+          <td th:text="${student.emailId}">Email</td>
+          <td>
+		    <a th:href="@{/students/edit/{id}(id=${student.studentId})}">Edit</a> |
+			<a th:href="@{/students/delete/{id}(id=${student.studentId})}"
+			   onclick="return confirm('Are you sure you want to delete this student?');">
+			   Delete
+			</a>
+
+		  </td>
+
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <a href="/register">Register New Student</a>
+  </div>
+</body>
+</html>

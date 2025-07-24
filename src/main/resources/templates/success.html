@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Success</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Successful!</h2>
+    <p th:text="${message}"></p>
+    <a href="/students">View All Students</a> | <a href="/register">Register Another</a>
+  </div>
+</body>
+</html>
